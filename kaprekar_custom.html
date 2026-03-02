@@ -38,8 +38,9 @@
 
   .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 12px; line-height: 2; }
   .credit { font-family: var(--font-mono); color: var(--sub-color); font-size: 12px; margin-bottom: 36px; letter-spacing: 2px; }
+  .credit a { color: var(--sub-color); text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
 
-  /* セクション共通 */
   .section {
     background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
     padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -50,7 +51,6 @@
     text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
   }
 
-  /* シーケンスビルダー */
   .seq-display {
     display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
     min-height: 48px; padding: 12px; background: var(--surface2);
@@ -75,10 +75,7 @@
   .chip-add { background: rgba(170,119,0,0.1); color: var(--add-color); }
   .chip-mul { background: rgba(119,51,187,0.1); color: var(--mul-color); }
 
-  .seq-arrow {
-    font-family: var(--font-mono); color: var(--text-dim); font-size: 14px;
-  }
-
+  .seq-arrow { font-family: var(--font-mono); color: var(--text-dim); font-size: 14px; }
   .seq-repeat {
     font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
     margin-left: 8px; padding: 4px 10px; background: var(--surface);
@@ -112,7 +109,6 @@
   }
   .util-btn:hover { border-color: var(--text-dim); }
 
-  /* プリセット */
   .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
   .preset-btn {
     font-family: var(--font-mono); font-size: 11px; padding: 6px 12px;
@@ -121,7 +117,37 @@
   }
   .preset-btn:hover { border-color: var(--div-color); color: var(--div-color); }
 
-  /* 入力行 */
+  /* 0トグル */
+  .zero-toggle {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; background: var(--surface2); border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .toggle-switch {
+    position: relative; width: 44px; height: 24px; cursor: pointer; flex-shrink: 0;
+  }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-track {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--border); border-radius: 12px; transition: background 0.2s;
+  }
+  .toggle-switch input:checked + .toggle-track { background: var(--div-color); }
+  .toggle-knob {
+    position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+    background: #fff; border-radius: 50%; transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .toggle-switch input:checked ~ .toggle-knob { transform: translateX(20px); }
+  .zero-mode-text {
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+    min-width: 80px;
+  }
+  .zero-mode-text.on { color: var(--div-color); }
+  .zero-mode-text.off { color: var(--sub-color); }
+  .zero-explain {
+    font-family: var(--font-jp); font-size: 12px; color: var(--text-dim); line-height: 1.6;
+  }
+
   .input-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
 
   .input-group { display: flex; flex-direction: column; gap: 6px; }
@@ -140,16 +166,15 @@
   .btn-run:hover { opacity: 0.85; }
   .btn-random { background: var(--surface2); color: var(--text); font-family: var(--font-mono); font-weight: 600; font-size: 13px; padding: 11px 18px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; }
 
-  /* 結果 */
   .result-area { display: none; }
   .result-area.visible { display: block; }
 
   .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
   .result-badge { font-family: var(--font-mono); font-size: 13px; padding: 5px 12px; border-radius: 16px; font-weight: 600; background: rgba(26,138,69,0.08); color: var(--green); border: 1px solid rgba(26,138,69,0.25); }
   .step-info { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); }
-  .seq-used { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-bottom: 12px; }
+  .seq-used { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+  .zero-used { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-bottom: 12px; }
 
-  /* テーブル */
   .trace-table {
     width: 100%; border-collapse: collapse; margin-bottom: 20px; background: var(--surface);
     border-radius: 10px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -172,13 +197,11 @@
   .op-mul-bg { background: rgba(119,51,187,0.08); color: var(--mul-color); }
   .loop-row td { background: rgba(119,51,187,0.04); }
 
-  /* 素因数 */
   .fbox { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
   .fbox h3 { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
   .fline { font-family: var(--font-mono); font-size: 13px; line-height: 2; }
   .fline .p { color: var(--div-color); font-weight: 600; }
 
-  /* 全数探索 */
   .scan-area { margin-top: 32px; }
   .scan-area h2 { color: var(--div-color); }
   .scan-row { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 16px; flex-wrap: wrap; }
@@ -198,7 +221,7 @@
     好きな演算を好きな順番で好きな回数だけ並べて繰り返し数字を操作できます。<br>
     何がどう収束して何がどう発散するのかを自分で確かめてみて。
   </div>
-  <div class="credit"><a href="https://www.viorazu.com/" target="_blank">Viorazu.</a></div>
+  <div class="credit"><a href="https://www.viorazu.com/" target="_blank">Viorazu.</a> / Code by Claude (Anthropic)</div>
 
   <!-- シーケンスビルダー -->
   <div class="section">
@@ -226,11 +249,22 @@
       <button class="preset-btn" onclick="setPreset(['sub'])">−のみ</button>
       <button class="preset-btn" onclick="setPreset(['div','sub'])">÷→−</button>
       <button class="preset-btn" onclick="setPreset(['div','sub','add','mul'])">÷→−→+→×</button>
-      <button class="preset-btn" onclick="setPreset(['add','mul','div','sub'])"">+→×→÷→−</button>
+      <button class="preset-btn" onclick="setPreset(['add','mul','div','sub'])">+→×→÷→−</button>
       <button class="preset-btn" onclick="setPreset(['div','div','sub'])">÷÷−</button>
       <button class="preset-btn" onclick="setPreset(['add','sub','mul','div'])">+→−→×→÷</button>
       <button class="preset-btn" onclick="setPreset(['mul','mul','div','div'])">××÷÷</button>
       <button class="preset-btn" onclick="setPreset(['add','add','add','div'])">+++÷</button>
+    </div>
+
+    <!-- 0の処理トグル -->
+    <div class="zero-toggle">
+      <label class="toggle-switch">
+        <input type="checkbox" id="zeroFill" checked onchange="updateZeroText()">
+        <span class="toggle-track"></span>
+        <span class="toggle-knob"></span>
+      </label>
+      <span class="zero-mode-text on" id="zeroModeText">0を補う</span>
+      <span class="zero-explain" id="zeroExplain">桁数を維持する（607→067として処理）。カプレカの元のルール。</span>
     </div>
   </div>
 
@@ -253,6 +287,7 @@
       <span class="step-info" id="stepInfo"></span>
     </div>
     <div class="seq-used" id="seqUsed"></div>
+    <div class="zero-used" id="zeroUsed"></div>
     <table class="trace-table" id="traceTable">
       <thead><tr><th>#</th><th>演算</th><th>値</th><th>降順</th><th></th><th>昇順</th><th></th><th>結果</th></tr></thead>
       <tbody id="traceBody"></tbody>
@@ -285,6 +320,21 @@ var OPCOL = {div:'var(--div-color)',sub:'var(--sub-color)',add:'var(--add-color)
 
 var sequence = [];
 
+function updateZeroText() {
+  var on = document.getElementById('zeroFill').checked;
+  var txt = document.getElementById('zeroModeText');
+  var exp = document.getElementById('zeroExplain');
+  if (on) {
+    txt.textContent = '0\u3092\u88dc\u3046';
+    txt.className = 'zero-mode-text on';
+    exp.textContent = '\u6841\u6570\u3092\u7dad\u6301\u3059\u308b\uff08607\u2192067\u3068\u3057\u3066\u51e6\u7406\uff09\u3002\u30ab\u30d7\u30ec\u30ab\u306e\u5143\u306e\u30eb\u30fc\u30eb\u3002';
+  } else {
+    txt.textContent = '0\u3092\u6d88\u3059';
+    txt.className = 'zero-mode-text off';
+    exp.textContent = '\u7d50\u679c\u306e\u81ea\u7136\u306a\u6841\u6570\u3067\u7d9a\u3051\u308b\uff08607\u219267\u3068\u3057\u3066\u51e6\u7406\uff09\u3002\u5168\u90e81\u306b\u6f70\u308c\u3084\u3059\u3044\u3002';
+  }
+}
+
 function renderSeq() {
   var el = document.getElementById('seqDisplay');
   if (sequence.length === 0) {
@@ -306,12 +356,11 @@ function clearSeq() { sequence = []; renderSeq(); }
 function undoSeq() { sequence.pop(); renderSeq(); }
 function setPreset(seq) { sequence = seq.slice(); renderSeq(); }
 
-// 初期プリセット
 setPreset(['div','sub','add','mul']);
 
-function calc(n, digits, op) {
+function calc(n, digits, op, zfill) {
   var s = String(n);
-  while (s.length < digits) s = '0' + s;
+  if (zfill) { while (s.length < digits) s = '0' + s; }
   var ch = s.split('');
   var desc = parseInt(ch.slice().sort().reverse().join(''), 10);
   var asc = parseInt(ch.slice().sort().join(''), 10);
@@ -335,15 +384,16 @@ function fmtF(fs) { return fs.map(function(x){return x[1]===1?'<span class="p">'
 function run() {
   if (sequence.length === 0) { alert('\u6f14\u7b97\u30b7\u30fc\u30b1\u30f3\u30b9\u3092\u4f5c\u3063\u3066\u304f\u3060\u3055\u3044'); return; }
   var n = parseInt(document.getElementById('numInput').value.trim(), 10);
-  if (isNaN(n) || n < 10) return;
+  if (isNaN(n) || n < 1) return;
   var digits = String(n).length;
   var seqLen = sequence.length;
+  var zfill = document.getElementById('zeroFill').checked;
 
   var trace = [], seen = [], current = n, loopIdx = -1;
 
   for (var step = 0; step < 80; step++) {
     var op = sequence[step % seqLen];
-    var r = calc(current, digits, op);
+    var r = calc(current, digits, op, zfill);
     trace.push({val:current, d:r.d, a:r.a, op:op, r:r.r, e:r.e});
     if (r.e || r.r === 0 || r.r > 1e15) break;
     var si = seen.indexOf(r.r);
@@ -363,6 +413,7 @@ function run() {
   }
   document.getElementById('stepInfo').textContent = trace.length + '\u30b9\u30c6\u30c3\u30d7';
   document.getElementById('seqUsed').textContent = '\u30b7\u30fc\u30b1\u30f3\u30b9: ' + sequence.map(function(o){return SYM[o];}).join(' \u2192 ') + ' (\u7e70\u308a\u8fd4\u3057)';
+  document.getElementById('zeroUsed').textContent = '0\u306e\u51e6\u7406: ' + (zfill ? '0\u3092\u88dc\u3046\uff08\u6841\u6570\u7dad\u6301\uff09' : '0\u3092\u6d88\u3059\uff08\u81ea\u7136\u306a\u6841\u6570\uff09');
 
   var tbody = document.getElementById('traceBody');
   tbody.innerHTML = '';
@@ -409,6 +460,7 @@ async function startScan() {
   scanning = true;
   var digits = parseInt(document.getElementById('scanDigits').value,10);
   if (digits<2||digits>6){alert('2\u301c6');scanning=false;return;}
+  var zfill = document.getElementById('zeroFill').checked;
   var startN=Math.pow(10,digits-1),endN=Math.pow(10,digits),total=endN-startN;
   var seqLen=sequence.length;
   var pb=document.getElementById('pbar'),pt=document.getElementById('scanProg'),rd=document.getElementById('scanRes');
@@ -422,7 +474,7 @@ async function startScan() {
       var n=num,hist=[],found=false;
       for(var step=0;step<100;step++){
         var op=sequence[step%seqLen];
-        var r=calc(n,digits,op);
+        var r=calc(n,digits,op,zfill);
         if(r.e){zeros++;found=true;break;}
         if(r.r===0){zeros++;found=true;break;}
         if(r.r>1e15){exploded++;found=true;break;}
@@ -448,7 +500,8 @@ async function startScan() {
   var elapsed=((performance.now()-t0)/1000).toFixed(1);
   var valid=total-rep;
   var seqStr=sequence.map(function(o){return SYM[o];}).join('\u2192');
-  var out=digits+'\u6841 [\u30b7\u30fc\u30b1\u30f3\u30b9: '+seqStr+'] ('+elapsed+'\u79d2)\n';
+  var zeroMode=zfill?'0\u3092\u88dc\u3046':'0\u3092\u6d88\u3059';
+  var out=digits+'\u6841 [\u30b7\u30fc\u30b1\u30f3\u30b9: '+seqStr+'] ['+zeroMode+'] ('+elapsed+'\u79d2)\n';
   out+='\u6709\u52b9: '+valid.toLocaleString()+' / \u30bc\u30ed: '+zeros+' / \u767a\u6563: '+exploded+'\n\n';
   var entries=Object.entries(loops).sort(function(a,b){return b[1]-a[1];});
   out+='[\u30eb\u30fc\u30d7] '+entries.length+'\u7a2e\u985e\n';
