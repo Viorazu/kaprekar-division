@@ -64,7 +64,7 @@
   }
   .seq-chip:hover { opacity: 0.7; }
   .seq-chip:hover::after {
-    content: '\u00d7'; position: absolute; top: -6px; right: -6px;
+    content: '\00d7'; position: absolute; top: -6px; right: -6px;
     font-size: 11px; background: var(--sub-color); color: #fff;
     width: 16px; height: 16px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
@@ -117,7 +117,6 @@
   }
   .preset-btn:hover { border-color: var(--div-color); color: var(--div-color); }
 
-  /* 0トグル */
   .zero-toggle {
     display: flex; align-items: center; gap: 12px;
     padding: 12px 16px; background: var(--surface2); border-radius: 8px;
@@ -202,7 +201,7 @@
   .fline { font-family: var(--font-mono); font-size: 13px; line-height: 2; }
   .fline .p { color: var(--div-color); font-weight: 600; }
 
-  .scan-area { margin-top: 32px; }
+  .scan-area { margin-top: 0; }
   .scan-area h2 { color: var(--div-color); }
   .scan-row { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 16px; flex-wrap: wrap; }
   .scan-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; color: var(--text); font-family: var(--font-mono); font-size: 15px; width: 70px; outline: none; }
@@ -211,6 +210,78 @@
   .pbar { height: 100%; background: linear-gradient(90deg, var(--div-color), var(--mul-color)); width: 0%; transition: width 0.1s; }
   .scan-prog { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
   .scan-res { font-family: var(--font-mono); font-size: 13px; line-height: 2; white-space: pre-wrap; }
+
+  /* ===== 収束地図 ===== */
+  .map-area { margin-top: 0; }
+  .map-area h2 { color: var(--mul-color); }
+
+  .map-controls { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 16px; flex-wrap: wrap; }
+  .btn-map { background: var(--mul-color); color: #fff; font-family: var(--font-mono); font-weight: 600; font-size: 13px; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
+  .btn-map:hover { opacity: 0.85; }
+  .btn-map:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .map-pbar-c { width: 100%; height: 3px; background: var(--surface2); border-radius: 2px; margin-bottom: 8px; overflow: hidden; }
+  .map-pbar { height: 100%; background: linear-gradient(90deg, var(--mul-color), var(--sub-color)); width: 0%; transition: width 0.15s; }
+  .map-prog { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
+
+  .map-table-wrap { overflow-x: auto; margin-bottom: 20px; }
+  .map-table {
+    border-collapse: collapse; font-family: var(--font-mono); font-size: 13px;
+    border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    min-width: 600px; width: 100%;
+  }
+  .map-table th {
+    background: var(--surface2); color: var(--text-dim); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 1px; padding: 10px 12px;
+    border-bottom: 2px solid var(--border); text-align: left;
+    white-space: nowrap;
+  }
+  .map-table th.digit-col { color: var(--mul-color); font-size: 13px; font-weight: 800; }
+  .map-table td { padding: 10px 12px; border-bottom: 1px solid rgba(216,216,208,0.4); vertical-align: top; }
+  .map-table tr:last-child td { border-bottom: none; }
+  .map-table tr:hover td { background: rgba(119,51,187,0.02); }
+
+  .digit-label {
+    font-weight: 800; font-size: 18px; color: var(--mul-color);
+    width: 40px; text-align: center;
+  }
+  .loop-count { color: var(--text-dim); font-size: 12px; }
+
+  .loop-list { display: flex; flex-direction: column; gap: 6px; }
+  .loop-entry {
+    display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap;
+    padding: 8px 10px; border-radius: 6px; background: var(--surface2);
+    border-left: 3px solid transparent;
+  }
+  .loop-nums {
+    font-weight: 700; font-size: 14px; flex: 1; min-width: 120px;
+  }
+  .loop-pct {
+    font-size: 12px; color: var(--text-dim); white-space: nowrap; padding-top: 2px;
+  }
+  .loop-bar-wrap {
+    width: 100%; height: 4px; background: var(--border); border-radius: 2px; margin-top: 4px;
+  }
+  .loop-bar { height: 100%; border-radius: 2px; transition: width 0.3s; }
+  .loop-factors { font-size: 11px; color: var(--text-dim); margin-top: 2px; line-height: 1.8; width: 100%; }
+  .loop-factors .pf { color: var(--div-color); font-weight: 600; }
+
+  /* 小素数ハイライト */
+  .prime-only { border-left-color: var(--green) !important; background: rgba(26,138,69,0.04) !important; }
+  .prime-tag {
+    font-size: 10px; padding: 2px 6px; border-radius: 3px; font-weight: 600;
+    background: rgba(26,138,69,0.1); color: var(--green); white-space: nowrap;
+  }
+
+  .map-legend {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px;
+    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  .zero-row { color: var(--text-dim); font-size: 12px; }
+  .explode-row { color: var(--sub-color); font-size: 12px; }
 </style>
 </head>
 <body>
@@ -256,15 +327,14 @@
       <button class="preset-btn" onclick="setPreset(['add','add','add','div'])">+++÷</button>
     </div>
 
-    <!-- 0の処理トグル -->
     <div class="zero-toggle">
       <label class="toggle-switch">
         <input type="checkbox" id="zeroFill" checked onchange="updateZeroText()">
         <span class="toggle-track"></span>
         <span class="toggle-knob"></span>
       </label>
-      <span class="zero-mode-text on" id="zeroModeText">0を保つ</span>
-      <span class="zero-explain" id="zeroExplain">桁数を維持する（607→067として処理）。</span>
+      <span class="zero-mode-text on" id="zeroModeText">0を補う</span>
+      <span class="zero-explain" id="zeroExplain">桁数を維持する（607→067として処理）。カプレカの元のルール。</span>
     </div>
   </div>
 
@@ -310,6 +380,33 @@
     <div class="scan-res" id="scanRes"></div>
   </div>
 
+  <!-- ===== 収束地図 ===== -->
+  <div class="section map-area">
+    <h2>収束地図（桁数横断）</h2>
+    <div style="font-family:var(--font-jp);font-size:13px;color:var(--text-dim);margin-bottom:16px;line-height:1.8;">
+      2桁〜6桁を一括で探索して、各桁でどのループに何%の数が吸い込まれるかを比較します。<br>
+      <span style="color:var(--green);font-weight:700;">緑枠</span>＝素因数が 2・3・5・7 だけで構成されるループ
+    </div>
+
+    <div class="map-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:rgba(26,138,69,0.3);border:1px solid var(--green);"></div>
+        <span>素因数が 2/3/5/7 のみ</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--surface2);border:1px solid var(--border);"></div>
+        <span>それ以外</span>
+      </div>
+    </div>
+
+    <div class="map-controls">
+      <button class="btn-map" id="btnMap" onclick="startMap()">地図を作る（2〜6桁）</button>
+    </div>
+    <div class="map-pbar-c"><div class="map-pbar" id="mapPbar"></div></div>
+    <div class="map-prog" id="mapProg"></div>
+    <div class="map-table-wrap" id="mapTableWrap"></div>
+  </div>
+
 </div>
 
 <script>
@@ -325,20 +422,20 @@ function updateZeroText() {
   var txt = document.getElementById('zeroModeText');
   var exp = document.getElementById('zeroExplain');
   if (on) {
-    txt.textContent = '0\u3092\u88dc\u3046';
+    txt.textContent = '0を補う';
     txt.className = 'zero-mode-text on';
-    exp.textContent = '\u6841\u6570\u3092\u7dad\u6301\u3059\u308b\uff08607\u2192067\u3068\u3057\u3066\u51e6\u7406\uff09\u3002\u30ab\u30d7\u30ec\u30ab\u306e\u5143\u306e\u30eb\u30fc\u30eb\u3002';
+    exp.textContent = '桁数を維持する（607→067として処理）。カプレカの元のルール。';
   } else {
-    txt.textContent = '0\u3092\u6d88\u3059';
+    txt.textContent = '0を消す';
     txt.className = 'zero-mode-text off';
-    exp.textContent = '\u7d50\u679c\u306e\u81ea\u7136\u306a\u6841\u6570\u3067\u7d9a\u3051\u308b\uff08607\u219267\u3068\u3057\u3066\u51e6\u7406\uff09\u3002\u5168\u90e81\u306b\u6f70\u308c\u3084\u3059\u3044\u3002';
+    exp.textContent = '結果の自然な桁数で続ける（607→67として処理）。全部1に溢れやすい。';
   }
 }
 
 function renderSeq() {
   var el = document.getElementById('seqDisplay');
   if (sequence.length === 0) {
-    el.innerHTML = '<span style="color:var(--text-dim);font-family:var(--font-mono);font-size:13px;">\u30dc\u30bf\u30f3\u3092\u62bc\u3057\u3066\u6f14\u7b97\u3092\u8ffd\u52a0</span>';
+    el.innerHTML = '<span style="color:var(--text-dim);font-family:var(--font-mono);font-size:13px;">ボタンを押して演算を追加</span>';
     return;
   }
   var html = '';
@@ -346,7 +443,7 @@ function renderSeq() {
     if (i > 0) html += '<span class="seq-arrow">\u2192</span>';
     html += '<span class="seq-chip ' + CLS[op] + '" onclick="removeOp(' + i + ')">' + SYM[op] + '</span>';
   });
-  html += '<span class="seq-repeat">\u7e70\u308a\u8fd4\u3057</span>';
+  html += '<span class="seq-repeat">繰り返し</span>';
   el.innerHTML = html;
 }
 
@@ -379,10 +476,24 @@ function factorize(n) {
   while(d*d<=n){var c=0;while(n%d===0){c++;n=Math.floor(n/d);}if(c>0)f.push([d,c]);d++;}
   if(n>1)f.push([n,1]);return f;
 }
-function fmtF(fs) { return fs.map(function(x){return x[1]===1?'<span class="p">'+x[0]+'</span>':'<span class="p">'+x[0]+'</span><sup>'+x[1]+'</sup>';}).join(' \u00d7 '); }
+
+function fmtF(fs) {
+  return fs.map(function(x){
+    return x[1]===1
+      ? '<span class="pf">'+x[0]+'</span>'
+      : '<span class="pf">'+x[0]+'</span><sup>'+x[1]+'</sup>';
+  }).join(' × ');
+}
+
+// 素因数が全部 2,3,5,7 以下かチェック
+function isSmallPrimeOnly(n) {
+  if (n <= 1) return true;
+  var fs = factorize(n);
+  return fs.every(function(x){ return x[0] <= 7; });
+}
 
 function run() {
-  if (sequence.length === 0) { alert('\u6f14\u7b97\u30b7\u30fc\u30b1\u30f3\u30b9\u3092\u4f5c\u3063\u3066\u304f\u3060\u3055\u3044'); return; }
+  if (sequence.length === 0) { alert('演算シーケンスを作ってください'); return; }
   var n = parseInt(document.getElementById('numInput').value.trim(), 10);
   if (isNaN(n) || n < 1) return;
   var digits = String(n).length;
@@ -406,21 +517,21 @@ function run() {
   var badge = document.getElementById('resultBadge');
   if (loopIdx !== -1) {
     var ln = seen.slice(loopIdx);
-    badge.textContent = '\u30eb\u30fc\u30d7(\u9577\u3055' + ln.length + '): [' + ln.join(', ') + ']';
+    badge.textContent = 'ループ(長さ' + ln.length + '): [' + ln.join(', ') + ']';
   } else {
     var last = trace[trace.length-1];
-    badge.textContent = last.e ? last.e : (last.r > 1e15 ? '\u767a\u6563' : (last.r === 0 ? '\u2192 0' : '\u7d42\u4e86'));
+    badge.textContent = last.e ? last.e : (last.r > 1e15 ? '発散' : (last.r === 0 ? '→ 0' : '終了'));
   }
-  document.getElementById('stepInfo').textContent = trace.length + '\u30b9\u30c6\u30c3\u30d7';
-  document.getElementById('seqUsed').textContent = '\u30b7\u30fc\u30b1\u30f3\u30b9: ' + sequence.map(function(o){return SYM[o];}).join(' \u2192 ') + ' (\u7e70\u308a\u8fd4\u3057)';
-  document.getElementById('zeroUsed').textContent = '0\u306e\u51e6\u7406: ' + (zfill ? '0\u3092\u88dc\u3046\uff08\u6841\u6570\u7dad\u6301\uff09' : '0\u3092\u6d88\u3059\uff08\u81ea\u7136\u306a\u6841\u6570\uff09');
+  document.getElementById('stepInfo').textContent = trace.length + 'ステップ';
+  document.getElementById('seqUsed').textContent = 'シーケンス: ' + sequence.map(function(o){return SYM[o];}).join(' → ') + ' (繰り返し)';
+  document.getElementById('zeroUsed').textContent = '0の処理: ' + (zfill ? '0を補う（桁数維持）' : '0を消す（自然な桁数）');
 
   var tbody = document.getElementById('traceBody');
   tbody.innerHTML = '';
   trace.forEach(function(t, i) {
     var tr = document.createElement('tr');
     if (loopIdx !== -1 && i >= loopIdx) tr.className = 'loop-row';
-    var rv = t.e ? t.e : (t.r > 1e15 ? '\u767a\u6563' : t.r.toLocaleString());
+    var rv = t.e ? t.e : (t.r > 1e15 ? '発散' : t.r.toLocaleString());
     tr.innerHTML =
       '<td class="sn">'+i+'</td>' +
       '<td><span class="op-tag '+OPCLS[t.op]+'">'+SYM[t.op]+'</span></td>' +
@@ -435,9 +546,9 @@ function run() {
 
   var fb = document.getElementById('fbox');
   if (loopIdx !== -1) {
-    var ln = seen.slice(loopIdx);
-    fb.innerHTML = '<h3>\u30eb\u30fc\u30d7\u8981\u7d20\u306e\u7d20\u56e0\u6570\u5206\u89e3</h3>';
-    ln.forEach(function(x) {
+    var ln2 = seen.slice(loopIdx);
+    fb.innerHTML = '<h3>ループ要素の素因数分解</h3>';
+    ln2.forEach(function(x) {
       var d = document.createElement('div');
       d.className = 'fline';
       d.innerHTML = x.toLocaleString() + ' = ' + fmtF(factorize(x));
@@ -454,12 +565,13 @@ function randomNum() {
   run();
 }
 
+// ===== 全数探索（既存） =====
 var scanning = false;
 async function startScan() {
   if (scanning || sequence.length === 0) return;
   scanning = true;
   var digits = parseInt(document.getElementById('scanDigits').value,10);
-  if (digits<2||digits>6){alert('2\u301c6');scanning=false;return;}
+  if (digits<2||digits>6){alert('2〜6');scanning=false;return;}
   var zfill = document.getElementById('zeroFill').checked;
   var startN=Math.pow(10,digits-1),endN=Math.pow(10,digits),total=endN-startN;
   var seqLen=sequence.length;
@@ -493,31 +605,189 @@ async function startScan() {
     }
     var pct=(end-startN)/total*100;
     pb.style.width=pct+'%';
-    pt.textContent=pct.toFixed(0)+'% ('+((end-startN).toLocaleString())+'/'+total.toLocaleString()+') '+((performance.now()-t0)/1000).toFixed(1)+'\u79d2';
+    pt.textContent=pct.toFixed(0)+'% ('+((end-startN).toLocaleString())+'/'+total.toLocaleString()+') '+((performance.now()-t0)/1000).toFixed(1)+'秒';
     await new Promise(function(r){setTimeout(r,0);});
   }
 
   var elapsed=((performance.now()-t0)/1000).toFixed(1);
   var valid=total-rep;
-  var seqStr=sequence.map(function(o){return SYM[o];}).join('\u2192');
-  var zeroMode=zfill?'0\u3092\u88dc\u3046':'0\u3092\u6d88\u3059';
-  var out=digits+'\u6841 [\u30b7\u30fc\u30b1\u30f3\u30b9: '+seqStr+'] ['+zeroMode+'] ('+elapsed+'\u79d2)\n';
-  out+='\u6709\u52b9: '+valid.toLocaleString()+' / \u30bc\u30ed: '+zeros+' / \u767a\u6563: '+exploded+'\n\n';
+  var seqStr=sequence.map(function(o){return SYM[o];}).join('→');
+  var zeroMode=zfill?'0を補う':'0を消す';
+  var out=digits+'桁 [シーケンス: '+seqStr+'] ['+zeroMode+'] ('+elapsed+'秒)\n';
+  out+='有効: '+valid.toLocaleString()+' / ゼロ: '+zeros+' / 発散: '+exploded+'\n\n';
   var entries=Object.entries(loops).sort(function(a,b){return b[1]-a[1];});
-  out+='[\u30eb\u30fc\u30d7] '+entries.length+'\u7a2e\u985e\n';
+  out+='[ループ] '+entries.length+'種類\n';
   entries.slice(0,15).forEach(function(e){
     var nums=e[0].split(',').map(Number);
-    out+='  \u9577\u3055'+nums.length+' | ['+nums.join(', ')+'] : '+e[1].toLocaleString()+'\u500b ('+((e[1]/valid*100).toFixed(1))+'%)\n';
+    out+='  長さ'+nums.length+' | ['+nums.join(', ')+'] : '+e[1].toLocaleString()+'個 ('+(e[1]/valid*100).toFixed(1)+'%)\n';
     nums.forEach(function(x){
       if(x>1){var f=factorize(x);out+='    '+x+' = '+f.map(function(p){return p[1]>1?p[0]+'^'+p[1]:String(p[0]);}).join(' x ')+'\n';}
     });
   });
-  if(entries.length>15) out+='  ... \u4ed6'+(entries.length-15)+'\u7a2e\u985e\n';
+  if(entries.length>15) out+='  ... 他'+(entries.length-15)+'種類\n';
   rd.textContent=out;
   scanning=false;
 }
 
-document.getElementById('numInput').addEventListener('keydown',function(e){if(e.key==='Enter')run();});
+// ===== 収束地図（桁数横断） =====
+var mapping = false;
+
+// ループキーを正規化（最小値始まり）
+function normalizeLoop(arr) {
+  var mv = Math.min.apply(null, arr);
+  var mi = arr.indexOf(mv);
+  return arr.slice(mi).concat(arr.slice(0, mi));
+}
+
+async function scanOneDigit(digits, zfill, seqLen) {
+  var startN = Math.pow(10, digits-1);
+  var endN   = Math.pow(10, digits);
+  var loops  = {};
+  var zeros  = 0, exploded = 0, rep = 0;
+  var chunk  = 8000;
+
+  for (var i = startN; i < endN; i += chunk) {
+    var end = Math.min(i + chunk, endN);
+    for (var num = i; num < end; num++) {
+      if (new Set(String(num)).size === 1) { rep++; continue; }
+      var n = num, hist = [], found = false;
+      for (var step = 0; step < 120; step++) {
+        var op = sequence[step % seqLen];
+        var r  = calc(n, digits, op, zfill);
+        if (r.e || r.r === 0) { zeros++; found = true; break; }
+        if (r.r > 1e15)       { exploded++; found = true; break; }
+        var idx = hist.indexOf(r.r);
+        if (idx !== -1) {
+          var lp  = normalizeLoop(hist.slice(idx));
+          var key = lp.join(',');
+          loops[key] = (loops[key] || 0) + 1;
+          found = true; break;
+        }
+        hist.push(r.r); n = r.r;
+      }
+      if (!found) exploded++;
+    }
+    await new Promise(function(r){ setTimeout(r, 0); });
+  }
+
+  var total = endN - startN;
+  var valid = total - rep;
+  return { loops: loops, zeros: zeros, exploded: exploded, valid: valid, total: total };
+}
+
+function renderLoopEntry(nums, count, valid) {
+  var pct = valid > 0 ? (count / valid * 100) : 0;
+  var allSmall = nums.every(function(x){ return isSmallPrimeOnly(x); });
+  var factLines = nums.map(function(x){
+    if (x <= 1) return x + ' = ' + x;
+    var fs = factorize(x);
+    return x.toLocaleString() + ' = ' + fmtF(fs);
+  }).join('<br>');
+
+  var barColor = allSmall ? 'var(--green)' : 'var(--mul-color)';
+  var cls = allSmall ? 'loop-entry prime-only' : 'loop-entry';
+  var tag = allSmall ? '<span class="prime-tag">2/3/5/7のみ</span>' : '';
+
+  // バー幅は最大80%スケール
+  var barW = Math.min(pct * 0.8 + 5, 100);
+
+  return '<div class="' + cls + '">' +
+    '<div style="width:100%;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+      '<span class="loop-nums">[' + nums.join(', ') + ']</span>' +
+      tag +
+      '<span class="loop-pct">' + count.toLocaleString() + '個 (' + pct.toFixed(1) + '%)</span>' +
+    '</div>' +
+    '<div class="loop-bar-wrap"><div class="loop-bar" style="width:' + barW + '%;background:' + barColor + ';"></div></div>' +
+    '<div class="loop-factors">' + factLines + '</div>' +
+  '</div>';
+}
+
+async function startMap() {
+  if (mapping || sequence.length === 0) {
+    if (sequence.length === 0) alert('演算シーケンスを作ってください');
+    return;
+  }
+  mapping = true;
+  var btn = document.getElementById('btnMap');
+  btn.disabled = true;
+  btn.textContent = '計算中...';
+
+  var zfill  = document.getElementById('zeroFill').checked;
+  var seqLen = sequence.length;
+  var seqStr = sequence.map(function(o){ return SYM[o]; }).join('→');
+  var pb     = document.getElementById('mapPbar');
+  var pt     = document.getElementById('mapProg');
+  var wrap   = document.getElementById('mapTableWrap');
+  wrap.innerHTML = '';
+  pb.style.width = '0%';
+
+  var allResults = [];
+  var t0 = performance.now();
+
+  for (var d = 2; d <= 6; d++) {
+    pt.textContent = d + '桁を計算中... (' + (d-2) + '/5)';
+    pb.style.width = ((d-2)/5*100) + '%';
+    var res = await scanOneDigit(d, zfill, seqLen);
+    allResults.push({ digits: d, res: res });
+    pt.textContent = d + '桁 完了 (' + (d-1) + '/5)';
+    pb.style.width = ((d-1)/5*100) + '%';
+  }
+
+  pb.style.width = '100%';
+  var elapsed = ((performance.now()-t0)/1000).toFixed(1);
+  pt.textContent = '完了 (' + elapsed + '秒) — シーケンス: ' + seqStr + ' / ' + (zfill ? '0を補う' : '0を消す');
+
+  // テーブル描画
+  var html = '<table class="map-table">';
+  html += '<thead><tr>' +
+    '<th class="digit-col">桁</th>' +
+    '<th>有効数</th>' +
+    '<th>ループ種類</th>' +
+    '<th>ループ詳細（上位）</th>' +
+    '<th>ゼロ/発散</th>' +
+  '</tr></thead><tbody>';
+
+  allResults.forEach(function(item) {
+    var d   = item.digits;
+    var res = item.res;
+    var entries = Object.entries(res.loops).sort(function(a,b){ return b[1]-a[1]; });
+    var topN = entries.slice(0, 8);
+
+    var loopHtml = '<div class="loop-list">';
+    if (topN.length === 0) {
+      loopHtml += '<div style="color:var(--text-dim);font-size:12px;">ループなし</div>';
+    } else {
+      topN.forEach(function(e) {
+        var nums = e[0].split(',').map(Number);
+        loopHtml += renderLoopEntry(nums, e[1], res.valid);
+      });
+      if (entries.length > 8) {
+        loopHtml += '<div style="color:var(--text-dim);font-size:12px;padding:4px 10px;">... 他' + (entries.length-8) + '種類</div>';
+      }
+    }
+    loopHtml += '</div>';
+
+    html += '<tr>' +
+      '<td class="digit-label">' + d + '</td>' +
+      '<td style="font-size:13px;color:var(--text-dim);">' + res.valid.toLocaleString() + '</td>' +
+      '<td style="font-size:15px;font-weight:700;color:var(--mul-color);">' + entries.length + '</td>' +
+      '<td>' + loopHtml + '</td>' +
+      '<td class="zero-row">' +
+        (res.zeros > 0 ? 'ゼロ: ' + res.zeros.toLocaleString() + '<br>' : '') +
+        (res.exploded > 0 ? '<span class="explode-row">発散: ' + res.exploded.toLocaleString() + '</span>' : '') +
+      '</td>' +
+    '</tr>';
+  });
+
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
+
+  btn.disabled = false;
+  btn.textContent = '再計算';
+  mapping = false;
+}
+
+document.getElementById('numInput').addEventListener('keydown', function(e){ if(e.key==='Enter') run(); });
 </script>
 </body>
 </html>
